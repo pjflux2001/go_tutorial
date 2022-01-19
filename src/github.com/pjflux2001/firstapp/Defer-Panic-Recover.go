@@ -31,4 +31,39 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("%s", robots)
+
+	// defer isn't good for loops
+
+	//
+	a := "start"
+	defer fmt.Println(a)
+	a = "end"
+
+	// panic
+	// a, b := 1, 0
+	// ans := a / b
+	// fmt.Println(ans)
+	// panic("error happened")
+
+	// panic in web server
+	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	// 	w.Write([]byte("Hello Go!"))
+	// })
+	// err = http.ListenAndServe(":8080", nil)
+	// if err != nil {
+	// 	panic(err.Error())
+	// }
+
+	// panics happen after defer
+	// normal -> defer -> panic
+
+	// anonyonomous fnc
+	fmt.Println("Start")
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("Error : ", err)
+		}
+	}()
+	panic("something bad")
+	fmt.Println("done")
 }
